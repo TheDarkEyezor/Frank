@@ -1,13 +1,16 @@
 responses = {
   "first name": "Aditya",
-  "last name": "Prabakaran",
+  "last name": "Prabakaran", 
   "full name": "Aditya Prabakaran",
   "email": "aditya.prabakaran@gmail.com",
   "phone": "+447587460771",
   "preferred contact method": "email",
   "preferred name": "Adi",
   "school": "Imperial College London",
-  "degree": "MEng/ Master of Engineering",
+  "university": "Imperial College London",
+  "degree": "MEng Computer Science",
+  "graduation year": "2024",
+  "gpa": "First Class Honours",
   "city": "London",
   "country": "United Kingdom",
   "major": "Computer Science",
@@ -22,6 +25,18 @@ responses = {
   "disability": "none",
   "gender": "male",
   "sexuality": "straight/cis",
+  
+  # Work experience details
+  "current company": "Trajex",
+  "current position": "Machine Learning Developer",
+  "current start date": "2024-10-01",
+  "previous company": "Altus Reach", 
+  "previous position": "Machine Learning Engineer",
+  "previous start date": "2023-12-01",
+  "previous end date": "2024-10-01",
+  
+  # Account creation credentials
+  "password": "!n+3rn10|",
 }
 
 import os
@@ -81,12 +96,49 @@ class ApplicationFiller:
         "type": "greenhouse",
         "requires_account": False,
         "custom_dropdowns": True,
-  "enter_key_for_dropdowns": True,
-  # Defer file uploads (resume) until after other fields to avoid interrupting
-  # interactive widgets like React-select comboboxes
-  "defer_file_uploads": True,
+        "enter_key_for_dropdowns": True,
+        # Defer file uploads (resume) until after other fields to avoid interrupting
+        # interactive widgets like React-select comboboxes
+        "defer_file_uploads": True,
         "has_cookies": False,
         "extract_job_info_early": True
+      },
+      "temasek.com.sg": {
+        "type": "temasek_careers",
+        "requires_account": True,
+        "apply_button_required": True,
+        "account_creation_url": "/talentcommunity/apply/",
+        "login_url": "/talentcommunity/login/",
+        "email_field": "email",
+        "password_field": "password",
+        "has_cookies": True,
+        "cookie_button_text": "Accept",
+        "extract_job_info_early": True,
+        "education_fields": True,
+        "experience_fields": True
+      },
+      "squarepoint-capital.com": {
+        "type": "squarepoint",
+        "requires_account": True,
+        "apply_button_required": True,
+        "account_creation_url": "/careers/apply/",
+        "login_url": "/careers/login/",
+        "has_cookies": True,
+        "cookie_button_text": "I agree to all cookie use",
+        "extract_job_info_early": True,
+        "education_fields": True,
+        "experience_fields": True
+      },
+      "verition.com": {
+        "type": "verition",
+        "requires_account": True,
+        "apply_button_required": True,
+        "account_creation_url": "/careers/apply/",
+        "login_url": "/careers/login/",
+        "has_cookies": True,
+        "extract_job_info_early": True,
+        "education_fields": True,
+        "experience_fields": True
       },
       "helsing.ai": {
         "type": "direct_form",
@@ -134,9 +186,7 @@ class ApplicationFiller:
           "interview_transcript_consent": "Yes, I consent"
         }
       }
-    }
-    
-    # Extract website type from URL
+    }    # Extract website type from URL
     self.current_website_config = self._detect_website_type()
     
   def handle_cookies(self):
@@ -1989,7 +2039,442 @@ Provide a customized version that emphasizes relevant experience for this specif
       print(f"❌ Error in report_and_refill_missing_fields: {e}")
       return False
 
-  def submit(self):
+  def run_multiple_applications(self, urls):
+    """Process multiple job application URLs"""
+    results = []
+    open_tabs = []  # Track browsers with failed submissions
+    
+    for i, url in enumerate(urls, 1):
+      print(f"\n=== Processing URL {i}/{len(urls)}: {url} ===")
+      try:
+        # Initialize new ApplicationFiller instance for each URL
+        filler = ApplicationFiller(
+          link=url,
+          headless=self.headless,
+          slow_mode=self.slow_mode,
+          model=self.model,
+          resume_path=self.resume_path,
+          reference_doc_path=self.reference_doc_path
+        )
+        result = filler.submit(multi_url_mode=True)
+        
+        # Check if submission failed (returns URL string instead of True)
+        if isinstance(result, str):
+          print(f"⚠️ Submission failed for {url} - keeping tab open for manual completion")
+          results.append({"url": url, "status": "partial", "result": result, "driver": filler.driver})
+          open_tabs.append({"url": url, "driver": filler.driver, "filler": filler})
+          # Don't close the driver - keep it open for manual completion
+        else:
+          print(f"✓ Successfully processed {url}")
+          results.append({"url": url, "status": "success", "result": result})
+          filler.close_driver()
+          
+      except Exception as e:
+        print(f"✗ Failed to process {url}: {str(e)}")
+        results.append({"url": url, "status": "error", "error": str(e)})
+        # Close driver on hard errors
+        try:
+          filler.close_driver()
+        except:
+          pass
+      
+      # Add delay between applications to avoid rate limiting
+      if i < len(urls):
+        print(f"Waiting 10 seconds before next application...")
+        time.sleep(10)
+    
+    # Report summary
+    print(f"\n📊 BATCH PROCESSING COMPLETE:")
+    success_count = sum(1 for r in results if r['status'] == 'success')
+    partial_count = sum(1 for r in results if r['status'] == 'partial')
+    error_count = sum(1 for r in results if r['status'] == 'error')
+    
+    print(f"✅ Fully completed: {success_count}/{len(results)}")
+    print(f"⚠️ Partially completed (manual finish needed): {partial_count}/{len(results)}")
+    print(f"❌ Failed: {error_count}/{len(results)}")
+    
+    if open_tabs:
+      print(f"\n🌐 {len(open_tabs)} browser tabs remain open for manual completion:")
+      for tab in open_tabs:
+        print(f"   📋 {tab['url']}")
+      
+      print(f"\n⏰ All tabs will remain open. Complete them manually and close when done.")
+      print(f"   Press Ctrl+C to close all remaining tabs and exit.")
+      
+      # Keep script running so tabs stay open
+      try:
+        while open_tabs:
+          time.sleep(10)
+          # Check if any tabs were manually closed
+          remaining_tabs = []
+          for tab in open_tabs:
+            try:
+              # Test if driver is still active
+              tab['driver'].current_url
+              remaining_tabs.append(tab)
+            except:
+              # Tab was closed
+              print(f"✓ Tab closed for {tab['url']}")
+          open_tabs = remaining_tabs
+          
+      except KeyboardInterrupt:
+        print(f"\n👋 Closing all remaining tabs...")
+        for tab in open_tabs:
+          try:
+            tab['filler'].close_driver()
+          except:
+            pass
+    
+    return results
+
+  def create_account_if_needed(self):
+    """Create account if the site requires one and we're not logged in"""
+    try:
+      # Get site config based on current URL
+      site_config = self.get_site_config()
+      
+      if not site_config.get("requires_account", False):
+        return True
+      
+      # Check if already logged in
+      if self.is_logged_in():
+        print("Already logged in")
+        return True
+      
+      print("Account required. Attempting to create/login...")
+      
+      # Try to login first
+      if self.attempt_login(site_config):
+        return True
+      
+      # If login fails, try account creation
+      return self.attempt_account_creation(site_config)
+    except Exception as e:
+      print(f"Error in account creation: {e}")
+      return True  # Continue anyway
+
+  def get_site_config(self):
+    """Get configuration for current site"""
+    try:
+      current_url = self.driver.current_url.lower()
+      for domain, config in self.website_configs.items():
+        if domain in current_url:
+          return config
+      return {}  # Return empty config if no match
+    except:
+      return {}
+
+  def is_logged_in(self):
+    """Check if user is already logged in"""
+    try:
+      # Look for common login indicators
+      login_indicators = [
+        "logout", "sign out", "profile", "dashboard", 
+        "my account", "welcome back", "apply now"
+      ]
+      
+      for indicator in login_indicators:
+        elements = self.driver.find_elements(By.XPATH, f"//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '{indicator}')]")
+        if elements:
+          print(f"Found login indicator: {indicator}")
+          return True
+      
+      return False
+    except Exception as e:
+      print(f"Error checking login status: {e}")
+      return False
+
+  def attempt_login(self, site_config):
+    """Attempt to login with existing credentials"""
+    try:
+      login_url = site_config.get("login_url")
+      if login_url:
+        current_url = self.driver.current_url
+        # Navigate to login if not already there
+        if "login" not in current_url.lower():
+          base_url = self.driver.current_url.split('/')[0] + '//' + self.driver.current_url.split('/')[2]
+          self.driver.get(base_url + login_url)
+          time.sleep(3)
+      
+      # Look for login form
+      email_field = site_config.get("email_field", "email")
+      password_field = site_config.get("password_field", "password")
+      
+      # Try various selectors for email field
+      email_selectors = [
+        f"input[name='{email_field}']",
+        f"input[id='{email_field}']",
+        "input[type='email']",
+        "input[placeholder*='email']"
+      ]
+      
+      email_element = None
+      for selector in email_selectors:
+        try:
+          email_element = self.driver.find_element(By.CSS_SELECTOR, selector)
+          break
+        except:
+          continue
+      
+      if not email_element:
+        print("Could not find email field for login")
+        return False
+      
+      # Try various selectors for password field  
+      password_selectors = [
+        f"input[name='{password_field}']",
+        f"input[id='{password_field}']",
+        "input[type='password']",
+        "input[placeholder*='password']"
+      ]
+      
+      password_element = None
+      for selector in password_selectors:
+        try:
+          password_element = self.driver.find_element(By.CSS_SELECTOR, selector)
+          break
+        except:
+          continue
+      
+      if not password_element:
+        print("Could not find password field for login")
+        return False
+      
+      # Fill login form
+      email_element.clear()
+      email_element.send_keys(self.responses["email"])
+      time.sleep(1)
+      
+      password_element.clear()
+      password_element.send_keys(self.responses["account_password"])
+      time.sleep(1)
+      
+      # Submit form
+      submit_selectors = [
+        "button[type='submit']",
+        "input[type='submit']",
+        "button:contains('Login')",
+        "button:contains('Sign in')",
+        "button:contains('Log in')"
+      ]
+      
+      for selector in submit_selectors:
+        try:
+          submit_button = self.driver.find_element(By.CSS_SELECTOR, selector)
+          submit_button.click()
+          break
+        except:
+          continue
+      
+      # Wait for login to complete
+      time.sleep(5)
+      
+      # Check if login was successful
+      return self.is_logged_in()
+      
+    except Exception as e:
+      print(f"Error during login attempt: {e}")
+      return False
+
+  def attempt_account_creation(self, site_config):
+    """Attempt to create a new account"""
+    try:
+      account_url = site_config.get("account_creation_url")
+      if account_url:
+        base_url = self.driver.current_url.split('/')[0] + '//' + self.driver.current_url.split('/')[2]
+        self.driver.get(base_url + account_url)
+        time.sleep(3)
+      
+      # Look for registration/signup links
+      signup_links = [
+        "a:contains('Sign up')",
+        "a:contains('Register')",
+        "a:contains('Create account')",
+        "button:contains('Sign up')",
+        "button:contains('Register')"
+      ]
+      
+      for link_selector in signup_links:
+        try:
+          link = self.driver.find_element(By.CSS_SELECTOR, link_selector)
+          link.click()
+          time.sleep(3)
+          break
+        except:
+          continue
+      
+      # Fill registration form
+      self.fill_registration_form()
+      
+      # Wait for account creation
+      time.sleep(10)
+      
+      return self.is_logged_in()
+      
+    except Exception as e:
+      print(f"Error during account creation: {e}")
+      return False
+
+  def fill_registration_form(self):
+    """Fill out registration form with user details"""
+    try:
+      # Common registration fields
+      field_mappings = {
+        "email": self.responses["email"],
+        "password": self.responses["account_password"],
+        "confirm_password": self.responses["account_password"],
+        "first_name": self.responses["first_name"],
+        "last_name": self.responses["last_name"],
+        "phone": self.responses["phone"],
+        "full_name": f"{self.responses['first_name']} {self.responses['last_name']}"
+      }
+      
+      for field_name, value in field_mappings.items():
+        selectors = [
+          f"input[name='{field_name}']",
+          f"input[id='{field_name}']",
+          f"input[placeholder*='{field_name.replace('_', ' ')}']"
+        ]
+        
+        for selector in selectors:
+          try:
+            element = self.driver.find_element(By.CSS_SELECTOR, selector)
+            element.clear()
+            element.send_keys(value)
+            time.sleep(0.5)
+            break
+          except:
+            continue
+      
+      # Handle checkboxes (terms, privacy policy)
+      checkbox_selectors = [
+        "input[type='checkbox']",
+        "input[name*='terms']",
+        "input[name*='privacy']",
+        "input[name*='agree']"
+      ]
+      
+      for selector in checkbox_selectors:
+        try:
+          checkboxes = self.driver.find_elements(By.CSS_SELECTOR, selector)
+          for checkbox in checkboxes:
+            if not checkbox.is_selected():
+              checkbox.click()
+              time.sleep(0.5)
+        except:
+          continue
+      
+      # Submit registration form
+      submit_selectors = [
+        "button[type='submit']",
+        "input[type='submit']",
+        "button:contains('Create account')",
+        "button:contains('Register')",
+        "button:contains('Sign up')"
+      ]
+      
+      for selector in submit_selectors:
+        try:
+          submit_button = self.driver.find_element(By.CSS_SELECTOR, selector)
+          submit_button.click()
+          break
+        except:
+          continue
+      
+    except Exception as e:
+      print(f"Error filling registration form: {e}")
+
+  def handle_education_fields(self):
+    """Handle education-specific form fields"""
+    try:
+      education_fields = {
+        "university": "Imperial College London",
+        "degree": "Master of Engineering (MEng)",
+        "field_of_study": "Computer Science",
+        "graduation_year": "2024",
+        "gpa": "First Class Honours",
+        "education_level": "Master's degree"
+      }
+      
+      for field_name, value in education_fields.items():
+        selectors = [
+          f"input[name*='{field_name}']",
+          f"select[name*='{field_name}']",
+          f"input[id*='{field_name}']",
+          f"select[id*='{field_name}']"
+        ]
+        
+        for selector in selectors:
+          try:
+            elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
+            for element in elements:
+              if element.tag_name == "select":
+                self.handle_select_element(element, value)
+              else:
+                element.clear()
+                element.send_keys(value)
+              time.sleep(0.5)
+              break
+          except:
+            continue
+            
+    except Exception as e:
+      print(f"Error handling education fields: {e}")
+
+  def handle_experience_fields(self):
+    """Handle work experience-specific form fields"""
+    try:
+      # Handle multiple work experiences
+      experiences = [
+        {
+          "company": "Trajex",
+          "position": "Machine Learning Developer",
+          "start_date": "June 2024",
+          "end_date": "August 2024",
+          "description": "Developed ML models for trading algorithms"
+        },
+        {
+          "company": "Altus Reach", 
+          "position": "Machine Learning Engineer",
+          "start_date": "September 2023",
+          "end_date": "November 2023", 
+          "description": "Built predictive models for financial markets"
+        }
+      ]
+      
+      # Look for experience sections
+      for i, exp in enumerate(experiences):
+        section_prefix = f"experience_{i}" if i > 0 else "experience"
+        
+        for field_name, value in exp.items():
+          selectors = [
+            f"input[name*='{section_prefix}_{field_name}']",
+            f"input[name*='{field_name}']",
+            f"textarea[name*='{field_name}']",
+            f"select[name*='{field_name}']"
+          ]
+          
+          for selector in selectors:
+            try:
+              elements = self.driver.find_elements(By.CSS_SELECTOR, selector)
+              for element in elements[:1]:  # Only fill first match
+                if element.tag_name == "select":
+                  self.handle_select_element(element, value)
+                elif element.tag_name == "textarea":
+                  element.clear()
+                  element.send_keys(value)
+                else:
+                  element.clear()
+                  element.send_keys(value)
+                time.sleep(0.5)
+                break
+            except:
+              continue
+              
+    except Exception as e:
+      print(f"Error handling experience fields: {e}")
+
+  def submit(self, multi_url_mode=False):
     """Submit the form with improved detection and keep page open on failure"""
     try:
       # First, initialize driver if needed
@@ -2020,7 +2505,9 @@ Provide a customized version that emphasizes relevant experience for this specif
       print(f"📄 Using resume: {selected_resume}")
       
       # Step 5: Handle account creation if needed
-      self.create_account_if_needed()
+      site_config = self.get_site_config()
+      if site_config.get("requires_account", False):
+        self.create_account_if_needed()
       
       # Step 6: Handle Apply button if needed (this might navigate to a new page)  
       self.handle_apply_button()
@@ -2044,8 +2531,11 @@ Provide a customized version that emphasizes relevant experience for this specif
         
         if not self.driver:
           print("❌ Driver not initialized")
-          self.keep_browser_open("Driver not initialized")
-          return self.link
+          if multi_url_mode:
+            return self.link
+          else:
+            self.keep_browser_open("Driver not initialized", multi_url_mode)
+            return self.link
         
         print("🔍 Looking for submit button...")
         
@@ -2138,25 +2628,25 @@ Provide a customized version that emphasizes relevant experience for this specif
               return True
             else:
               print("⚠️ Submission may have failed - keeping browser open for manual completion")
-              self.keep_browser_open("Submission verification failed")
+              self.keep_browser_open("Submission verification failed", multi_url_mode)
               return self.link
           else:
             print(f"❌ All submit methods failed: {', '.join(methods_tried)}")
-            self.keep_browser_open(f"Submit failed: {', '.join(methods_tried)}")
+            self.keep_browser_open(f"Submit failed: {', '.join(methods_tried)}", multi_url_mode)
             return self.link
           
         else:
           print("⚠️ Submit button not found or not clickable")
-          self.keep_browser_open("Submit button not found")
+          self.keep_browser_open("Submit button not found", multi_url_mode)
           return self.link
       else:
         print("❌ Form filling failed")
-        self.keep_browser_open("Form filling failed")
+        self.keep_browser_open("Form filling failed", multi_url_mode)
         return self.link
       
     except Exception as e:
       print(f"❌ Error during submission: {e}")
-      self.keep_browser_open(f"Submission error: {e}")
+      self.keep_browser_open(f"Submission error: {e}", multi_url_mode)
       return self.link
 
   def check_submission_success(self, original_url):
@@ -2229,24 +2719,29 @@ Provide a customized version that emphasizes relevant experience for this specif
       print(f"❌ Error checking submission success: {e}")
       return False
 
-  def keep_browser_open(self, reason):
+  def keep_browser_open(self, reason, multi_url_mode=False):
     """Keep browser open for manual completion"""
     try:
       if not self.headless and self.driver:
         print(f"\n🔄 KEEPING BROWSER OPEN: {reason}")
         print("📋 Please complete the application manually at:")
         print(f"   {self.link}")
-        print("\n⏰ Browser will stay open. Close when done or press Ctrl+C to exit.")
         
-        # Keep the browser open indefinitely
-        while True:
-          try:
-            time.sleep(10)
-            # Check if browser is still open
-            if not self.driver.current_url:
+        if multi_url_mode:
+          print("\n⏰ Browser tab will stay open. Continuing to next URL...")
+          return  # Don't block in multi-URL mode
+        else:
+          print("\n⏰ Browser will stay open. Close when done or press Ctrl+C to exit.")
+          
+          # Keep the browser open indefinitely only in single-URL mode
+          while True:
+            try:
+              time.sleep(10)
+              # Check if browser is still open
+              if not self.driver.current_url:
+                break
+            except:
               break
-          except:
-            break
             
     except KeyboardInterrupt:
       print("\n👋 Exiting as requested")
@@ -2270,6 +2765,15 @@ Provide a customized version that emphasizes relevant experience for this specif
 
 if __name__ == "__main__":
   # Example usage with enhanced features - LIVE MODE by default
+  
+  # Multi-URL support examples:
+  target_urls = [
+    "https://job-boards.greenhouse.io/point72/jobs/8018862002?gh_jid=8018862002&gh_src=97fa02a42us&jobCode=CSS-0013383&location=New+York",
+    "https://helsing.ai/jobs/4489089101",
+    "https://jobs.temasek.com.sg/job/Singapore-Vice-President%2C-Investments-117434/",
+    "https://www.squarepoint-capital.com/careers/quant-developer-python/",
+    "https://verition.com/careers/"
+  ]
   
   # Multi-website support examples:
   websites = [
@@ -2296,41 +2800,75 @@ if __name__ == "__main__":
       "url": "https://davincitrading.com/job/quant-trading-intern/",
       "company": "Da Vinci",
       "title": "Quant Trading Intern"
+    },
+    {
+      "name": "Temasek",
+      "url": "https://jobs.temasek.com.sg/job/Singapore-Vice-President%2C-Investments-117434/",
+      "company": "Temasek",
+      "title": "Vice President, Investments"
     }
   ]
   
-  # Select which website to use (change index to test different sites)
-  selected_site = websites[0]  # Default to Point72
-  
-  print(f"🚀 Starting Enhanced ApplicationFiller for {selected_site['name']}...")
-  print(f"🎯 Target: {selected_site['company']} - {selected_site['title']}")
-  
-  # Create an instance with enhanced features
-  filler = ApplicationFiller(
-    link=selected_site["url"],
-    headless=False,          # LIVE MODE - show browser by default
-    slow_mode=True,          # Slow mode for visual effects
-    model="llama3.2",        # Ollama model to use
-    resume_path="AdiPrabs_SWE.docx",  # Default resume (will be auto-selected based on job type)
-    reference_doc_path=None,  # Path to reference document (optional)
-    company_name=selected_site["company"],
-    job_title=selected_site["title"]
-  )
-  
-  # Try to fill and submit the form
-  result = filler.submit()
-  
-  if isinstance(result, str):
-    print(f"📋 Please complete the application manually at: {result}")
+  # Select processing mode
+  import sys
+  if len(sys.argv) > 1 and sys.argv[1] == "--multi":
+    # Multi-URL processing mode
+    print("🚀 Starting Multi-URL Application Processing...")
+    filler = ApplicationFiller(
+      link="",  # Will be set for each URL
+      headless=False,
+      slow_mode=True,
+      model="llama3.2",
+      resume_path="AdiPrabs_SWE.docx"
+    )
+    
+    results = filler.run_multiple_applications(target_urls)
+    
+    print(f"\n📊 RESULTS SUMMARY:")
+    success_count = sum(1 for r in results if r['status'] == 'success')
+    print(f"✅ Successful: {success_count}/{len(results)}")
+    print(f"❌ Failed: {len(results) - success_count}/{len(results)}")
+    
+    for result in results:
+      status_icon = "✅" if result['status'] == 'success' else "❌"
+      print(f"{status_icon} {result['url']}")
+      if result['status'] == 'error':
+        print(f"   Error: {result['error']}")
+    
   else:
-    print("🎉 Application submitted successfully!")
-  
-  # Clean up
-  filler.close_driver()
+    # Single website mode
+    # Select which website to use (change index to test different sites)
+    selected_site = websites[0]  # Default to Point72
+    
+    print(f"🚀 Starting Enhanced ApplicationFiller for {selected_site['name']}...")
+    print(f"🎯 Target: {selected_site['company']} - {selected_site['title']}")
+    
+    # Create an instance with enhanced features
+    filler = ApplicationFiller(
+      link=selected_site["url"],
+      headless=False,          # LIVE MODE - show browser by default
+      slow_mode=True,          # Slow mode for visual effects
+      model="llama3.2",        # Ollama model to use
+      resume_path="AdiPrabs_SWE.docx",  # Default resume (will be auto-selected based on job type)
+      reference_doc_path=None,  # Path to reference document (optional)
+      company_name=selected_site["company"],
+      job_title=selected_site["title"]
+    )
+    
+    # Try to fill and submit the form
+    result = filler.submit(multi_url_mode=False)  # Single URL mode
+    
+    if isinstance(result, str):
+      print(f"📋 Please complete the application manually at: {result}")
+    else:
+      print("🎉 Application submitted successfully!")
+    
+    # Clean up
+    filler.close_driver()
   
   print("\n" + "="*60)
   print("✨ ENHANCED APPLICATION FILLER FEATURES:")
-  print("🔹 Multi-website support (Greenhouse, Helsing, Revolut, Da Vinci)")
+  print("🔹 Multi-website support (Greenhouse, Helsing, Revolut, Da Vinci, Temasek)")
   print("🔹 Smart job analysis for automatic resume selection")  
   print("🔹 Enhanced dropdown handling with Enter key support")
   print("🔹 🆕 Cookie consent handling (auto-accept)")
@@ -2338,7 +2876,8 @@ if __name__ == "__main__":
   print("🔹 🆕 Redirect detection and handling")
   print("🔹 🆕 Website-specific field mappings")
   print("🔹 🆕 Improved process order for better reliability")
-  print("🔹 Account creation for sites that require it")
+  print("🔹 🆕 Account creation for sites that require it")
+  print("🔹 🆕 Multi-URL batch processing (use --multi flag)")
   print("🔹 Apply button detection and handling")
   print("🔹 Browser stays open on errors for manual completion")
   print("🔹 Ollama LLM integration for intelligent responses")
@@ -2355,4 +2894,8 @@ if __name__ == "__main__":
   print("8. 🍪 Handle cookies again (if new page loaded)")
   print("9. 📝 Fill form with enhanced field detection")
   print("10. ✅ Submit application")
+  print("="*60)
+  print("\n🚀 USAGE:")
+  print("Single URL: python3 ApplicationFiller.py")
+  print("Multi URLs: python3 ApplicationFiller.py --multi")
   print("="*60)
