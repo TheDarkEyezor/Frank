@@ -1,0 +1,49 @@
+{
+  "url": "https://jobs.smartrecruiters.com/Wiser/744000076772605-advisory-summer-internship-2026-evercore?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&trid=Trackr&dcr_ci=Trackr",
+  "company": "Advisory Summer Internship",
+  "analysis_date": "2025-08-20T10:03:03.615706",
+  "page_title": "Wiser M&A Advisory Summer Internship (2026) | Evercore | SmartRecruiters",
+  "issues": [
+    "Cookie consent required",
+    "No forms found on page",
+    "External portal: smartrecruiters"
+  ],
+  "patterns": {
+    "cookie_consent": {
+      "buttons": [],
+      "text_patterns": [
+        "Cookie consent detected"
+      ],
+      "selectors": []
+    },
+    "form_structure": {
+      "forms": [],
+      "form_count": 0,
+      "has_forms": false
+    },
+    "input_fields": {
+      "input_types": {
+        "text": 1
+      },
+      "field_mappings": {},
+      "custom_fields": []
+    },
+    "external_portal": {
+      "portal_type": "smartrecruiters",
+      "portal_indicators": [
+        "SmartRecruiters portal detected"
+      ]
+    }
+  },
+  "recommendations": [
+    "Add cookie consent handling before form access",
+    "Form may be loaded dynamically or in iframe",
+    "Add specific handling for smartrecruiters portal"
+  ],
+  "original_app": {
+    "url": "https://jobs.smartrecruiters.com/Wiser/744000076772605-advisory-summer-internship-2026-evercore?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&trid=Trackr&dcr_ci=Trackr",
+    "company": "Advisory Summer Internship",
+    "status": "unknown",
+    "message": "External portal - needs analysis"
+  }
+}

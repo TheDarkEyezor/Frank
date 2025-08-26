@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-20T10:19:47.674506",
+  "total_applications": 2,
+  "success_count": 0,
+  "partial_count": 2,
+  "error_count": 0,
+  "results": [
+    {
+      "url": "https://www.deshaw.com/careers/trader-analyst-intern-london-summer-2026-5465?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026",
+      "company": "Trader/Analyst Intern (London)",
+      "status": "partial",
+      "reason": "https://www.deshaw.com/careers/trader-analyst-intern-london-summer-2026-5465?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026"
+    },
+    {
+      "url": "https://jobs.smartrecruiters.com/Wiser/744000076772605-advisory-summer-internship-2026-evercore?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&trid=Trackr&dcr_ci=Trackr",
+      "company": "Advisory Summer Internship",
+      "status": "partial",
+      "reason": "https://jobs.smartrecruiters.com/Wiser/744000076772605-advisory-summer-internship-2026-evercore?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&trid=Trackr&dcr_ci=Trackr"
+    }
+  ]
+}

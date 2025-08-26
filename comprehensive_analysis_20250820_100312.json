@@ -1,0 +1,422 @@
+{
+  "analysis_date": "2025-08-20T10:03:12.876920",
+  "total_pages_analyzed": 7,
+  "common_issues": {
+    "Cookie consent required": 6,
+    "Apply button required before form access": 3,
+    "No forms found on page": 4,
+    "External portal: smartrecruiters": 2,
+    "External portal: workday": 1,
+    "External portal: greenhouse": 2
+  },
+  "common_patterns": {
+    "cookie_consent": [
+      {
+        "buttons": [
+          {
+            "text": "Accept All",
+            "id": "",
+            "class": [
+              "sc-dAlyuH",
+              "bYmxqf"
+            ],
+            "selector": ".sc-dAlyuH bYmxqf button"
+          }
+        ],
+        "text_patterns": [
+          "Cookie consent detected"
+        ],
+        "selectors": []
+      },
+      {
+        "buttons": [],
+        "text_patterns": [
+          "Cookie consent detected"
+        ],
+        "selectors": []
+      },
+      {
+        "buttons": [
+          {
+            "text": "I accept\n        I accept the cookie policy",
+            "id": "cookies-accept-button",
+            "class": [
+              "btn",
+              "btn-primary"
+            ],
+            "selector": "#cookies-accept-button .btn btn-primary button"
+          },
+          {
+            "text": "Opt Out\n        I would like to opt out of cookies",
+            "id": "cookies-optout-button",
+            "class": [
+              "btn",
+              "btn-default"
+            ],
+            "selector": "#cookies-optout-button .btn btn-default button"
+          }
+        ],
+        "text_patterns": [
+          "Cookie consent detected"
+        ],
+        "selectors": []
+      },
+      {
+        "buttons": [],
+        "text_patterns": [
+          "Cookie consent detected"
+        ],
+        "selectors": []
+      },
+      {
+        "buttons": [],
+        "text_patterns": [
+          "Cookie consent detected"
+        ],
+        "selectors": []
+      },
+      {
+        "buttons": [],
+        "text_patterns": [
+          "Cookie consent detected"
+        ],
+        "selectors": []
+      }
+    ],
+    "apply_buttons": [
+      {
+        "buttons": [],
+        "links": [
+          {
+            "text": "Apply Now",
+            "href": "https://apply.deshaw.com/ApplicationPage1.html?entity=DESCO",
+            "id": "",
+            "class": [
+              "apply-now",
+              "parent-arrow-long",
+              "dark"
+            ],
+            "selector": ".apply-now parent-arrow-long dark a"
+          },
+          {
+            "text": "Apply Now",
+            "href": "https://apply.deshaw.com/ApplicationPage1.html?entity=DESCO",
+            "id": "",
+            "class": [
+              "apply-now",
+              "parent-arrow-long",
+              "light"
+            ],
+            "selector": ".apply-now parent-arrow-long light a"
+          }
+        ],
+        "text_patterns": []
+      },
+      {
+        "buttons": [
+          {
+            "text": "Apply",
+            "id": "",
+            "class": [
+              "btn",
+              "btn--pill"
+            ],
+            "selector": ".btn btn--pill button"
+          },
+          {
+            "text": "Submit application",
+            "id": "",
+            "class": [
+              "btn",
+              "btn--pill"
+            ],
+            "selector": ".btn btn--pill button"
+          }
+        ],
+        "links": [],
+        "text_patterns": []
+      },
+      {
+        "buttons": [
+          {
+            "text": "Apply",
+            "id": "",
+            "class": [
+              "btn",
+              "btn--pill"
+            ],
+            "selector": ".btn btn--pill button"
+          },
+          {
+            "text": "Submit application",
+            "id": "",
+            "class": [
+              "btn",
+              "btn--pill"
+            ],
+            "selector": ".btn btn--pill button"
+          }
+        ],
+        "links": [],
+        "text_patterns": []
+      }
+    ],
+    "form_structure": [
+      {
+        "forms": [],
+        "form_count": 0,
+        "has_forms": false
+      },
+      {
+        "forms": [],
+        "form_count": 0,
+        "has_forms": false
+      },
+      {
+        "forms": [
+          {
+            "index": 0,
+            "action": "",
+            "method": "",
+            "id": "",
+            "class": [],
+            "selector": "form",
+            "input_count": 0,
+            "select_count": 0,
+            "textarea_count": 0
+          },
+          {
+            "index": 1,
+            "action": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-c7e9620570c5/candidate/so/pm/1/pl/2/opp/260/apply/en-GB",
+            "method": "post",
+            "id": "",
+            "class": [
+              "apply-form-top"
+            ],
+            "selector": ".apply-form-top form",
+            "input_count": 2,
+            "select_count": 0,
+            "textarea_count": 0
+          },
+          {
+            "index": 2,
+            "action": "",
+            "method": "post",
+            "id": "form_10d6a20d-a0bf-4b65-a70d-5809d15521e2",
+            "class": [
+              "form-view",
+              "form-horizontal"
+            ],
+            "selector": "#form_10d6a20d-a0bf-4b65-a70d-5809d15521e2 .form-view form-horizontal form",
+            "input_count": 0,
+            "select_count": 0,
+            "textarea_count": 0
+          },
+          {
+            "index": 3,
+            "action": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-c7e9620570c5/candidate/so/pm/1/pl/2/opp/260/apply/en-GB",
+            "method": "post",
+            "id": "",
+            "class": [
+              "apply-form"
+            ],
+            "selector": ".apply-form form",
+            "input_count": 2,
+            "select_count": 0,
+            "textarea_count": 0
+          },
+          {
+            "index": 4,
+            "action": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-c7e9620570c5/candidate/logout",
+            "method": "post",
+            "id": "logout_form",
+            "class": [
+              "nodisplay"
+            ],
+            "selector": "#logout_form .nodisplay form",
+            "input_count": 1,
+            "select_count": 0,
+            "textarea_count": 0
+          }
+        ],
+        "form_count": 5,
+        "has_forms": true
+      },
+      {
+        "forms": [],
+        "form_count": 0,
+        "has_forms": false
+      },
+      {
+        "forms": [],
+        "form_count": 0,
+        "has_forms": false
+      },
+      {
+        "forms": [
+          {
+            "index": 0,
+            "action": "/ctccampusboard/jobs/4577583005?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&gh_src=Trackr",
+            "method": "get",
+            "id": "application-form",
+            "class": [
+              "application--form"
+            ],
+            "selector": "#application-form .application--form form",
+            "input_count": 73,
+            "select_count": 0,
+            "textarea_count": 0
+          }
+        ],
+        "form_count": 1,
+        "has_forms": true
+      },
+      {
+        "forms": [
+          {
+            "index": 0,
+            "action": "/virtu/jobs/7764836002?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&gh_src=Trackr",
+            "method": "get",
+            "id": "application-form",
+            "class": [
+              "application--form"
+            ],
+            "selector": "#application-form .application--form form",
+            "input_count": 36,
+            "select_count": 0,
+            "textarea_count": 0
+          }
+        ],
+        "form_count": 1,
+        "has_forms": true
+      }
+    ],
+    "input_fields": [
+      {
+        "input_types": {},
+        "field_mappings": {},
+        "custom_fields": []
+      },
+      {
+        "input_types": {
+          "text": 1
+        },
+        "field_mappings": {},
+        "custom_fields": []
+      },
+      {
+        "input_types": {
+          "hidden": 3,
+          "submit": 2
+        },
+        "field_mappings": {},
+        "custom_fields": []
+      },
+      {
+        "input_types": {
+          "text": 1
+        },
+        "field_mappings": {},
+        "custom_fields": []
+      },
+      {
+        "input_types": {},
+        "field_mappings": {},
+        "custom_fields": []
+      },
+      {
+        "input_types": {
+          "text": 39,
+          "file": 1,
+          "number": 2,
+          "checkbox": 31
+        },
+        "field_mappings": {
+          "first_name": "full name",
+          "last_name": "full name",
+          "email": "email",
+          "phone": "phone",
+          "school--0": "university",
+          "degree--0": "degree"
+        },
+        "custom_fields": []
+      },
+      {
+        "input_types": {
+          "text": 28,
+          "file": 2,
+          "number": 1,
+          "checkbox": 5
+        },
+        "field_mappings": {
+          "first_name": "full name",
+          "last_name": "full name",
+          "email": "email",
+          "phone": "phone",
+          "candidate-location": "city",
+          "school--0": "university",
+          "degree--0": "degree"
+        },
+        "custom_fields": []
+      }
+    ],
+    "external_portal": [
+      {
+        "portal_type": "smartrecruiters",
+        "portal_indicators": [
+          "SmartRecruiters portal detected"
+        ]
+      },
+      {
+        "portal_type": "smartrecruiters",
+        "portal_indicators": [
+          "SmartRecruiters portal detected"
+        ]
+      },
+      {
+        "portal_type": "workday",
+        "portal_indicators": [
+          "Workday portal detected"
+        ]
+      },
+      {
+        "portal_type": "greenhouse",
+        "portal_indicators": [
+          "Greenhouse portal detected"
+        ]
+      },
+      {
+        "portal_type": "greenhouse",
+        "portal_indicators": [
+          "Greenhouse portal detected"
+        ]
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "recommendation": "Add cookie consent handling before form access",
+      "frequency": 6
+    },
+    {
+      "recommendation": "Form may be loaded dynamically or in iframe",
+      "frequency": 4
+    },
+    {
+      "recommendation": "Click apply button before attempting form filling",
+      "frequency": 3
+    },
+    {
+      "recommendation": "Add specific handling for smartrecruiters portal",
+      "frequency": 2
+    },
+    {
+      "recommendation": "Add specific handling for greenhouse portal",
+      "frequency": 2
+    },
+    {
+      "recommendation": "Add specific handling for workday portal",
+      "frequency": 1
+    }
+  ]
+}

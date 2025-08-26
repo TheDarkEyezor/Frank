@@ -1,0 +1,124 @@
+{
+  "url": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-b99e124a669c/candidate/so/pm/1/pl/2/opp/260-2026-Summer-Analyst-Investment-Banking-London/en-GB?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026",
+  "company": "Moelis",
+  "analysis_date": "2025-08-20T10:03:01.539967",
+  "page_title": "2026 Summer Analyst, Investment Banking - London - Moelis Careers",
+  "issues": [
+    "Cookie consent required"
+  ],
+  "patterns": {
+    "cookie_consent": {
+      "buttons": [
+        {
+          "text": "I accept\n        I accept the cookie policy",
+          "id": "cookies-accept-button",
+          "class": [
+            "btn",
+            "btn-primary"
+          ],
+          "selector": "#cookies-accept-button .btn btn-primary button"
+        },
+        {
+          "text": "Opt Out\n        I would like to opt out of cookies",
+          "id": "cookies-optout-button",
+          "class": [
+            "btn",
+            "btn-default"
+          ],
+          "selector": "#cookies-optout-button .btn btn-default button"
+        }
+      ],
+      "text_patterns": [
+        "Cookie consent detected"
+      ],
+      "selectors": []
+    },
+    "form_structure": {
+      "forms": [
+        {
+          "index": 0,
+          "action": "",
+          "method": "",
+          "id": "",
+          "class": [],
+          "selector": "form",
+          "input_count": 0,
+          "select_count": 0,
+          "textarea_count": 0
+        },
+        {
+          "index": 1,
+          "action": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-c7e9620570c5/candidate/so/pm/1/pl/2/opp/260/apply/en-GB",
+          "method": "post",
+          "id": "",
+          "class": [
+            "apply-form-top"
+          ],
+          "selector": ".apply-form-top form",
+          "input_count": 2,
+          "select_count": 0,
+          "textarea_count": 0
+        },
+        {
+          "index": 2,
+          "action": "",
+          "method": "post",
+          "id": "form_10d6a20d-a0bf-4b65-a70d-5809d15521e2",
+          "class": [
+            "form-view",
+            "form-horizontal"
+          ],
+          "selector": "#form_10d6a20d-a0bf-4b65-a70d-5809d15521e2 .form-view form-horizontal form",
+          "input_count": 0,
+          "select_count": 0,
+          "textarea_count": 0
+        },
+        {
+          "index": 3,
+          "action": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-c7e9620570c5/candidate/so/pm/1/pl/2/opp/260/apply/en-GB",
+          "method": "post",
+          "id": "",
+          "class": [
+            "apply-form"
+          ],
+          "selector": ".apply-form form",
+          "input_count": 2,
+          "select_count": 0,
+          "textarea_count": 0
+        },
+        {
+          "index": 4,
+          "action": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-c7e9620570c5/candidate/logout",
+          "method": "post",
+          "id": "logout_form",
+          "class": [
+            "nodisplay"
+          ],
+          "selector": "#logout_form .nodisplay form",
+          "input_count": 1,
+          "select_count": 0,
+          "textarea_count": 0
+        }
+      ],
+      "form_count": 5,
+      "has_forms": true
+    },
+    "input_fields": {
+      "input_types": {
+        "hidden": 3,
+        "submit": 2
+      },
+      "field_mappings": {},
+      "custom_fields": []
+    }
+  },
+  "recommendations": [
+    "Add cookie consent handling before form access"
+  ],
+  "original_app": {
+    "url": "https://moelis-careers.tal.net/vx/lang-en-GB/mobile-0/appcentre-1/brand-4/xf-b99e124a669c/candidate/so/pm/1/pl/2/opp/260-2026-Summer-Analyst-Investment-Banking-London/en-GB?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026",
+    "company": "Moelis",
+    "status": "success",
+    "message": "Application submitted successfully"
+  }
+}

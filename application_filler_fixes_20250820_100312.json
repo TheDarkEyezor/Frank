@@ -1,0 +1,73 @@
+{
+  "cookie_handling": [
+    {
+      "company": "D.E. Shaw",
+      "selector": ".sc-dAlyuH bYmxqf button",
+      "text": "Accept All"
+    },
+    {
+      "company": "Moelis",
+      "selector": "#cookies-accept-button .btn btn-primary button",
+      "text": "I accept\n        I accept the cookie policy"
+    },
+    {
+      "company": "Moelis",
+      "selector": "#cookies-optout-button .btn btn-default button",
+      "text": "Opt Out\n        I would like to opt out of cookies"
+    }
+  ],
+  "apply_button_handling": [
+    {
+      "company": "Quant Trading Internship",
+      "selector": ".btn btn--pill button",
+      "text": "Apply"
+    },
+    {
+      "company": "Quant Trading Internship",
+      "selector": ".btn btn--pill button",
+      "text": "Submit application"
+    },
+    {
+      "company": "Internship - Quantitative",
+      "selector": ".btn btn--pill button",
+      "text": "Apply"
+    },
+    {
+      "company": "Internship - Quantitative",
+      "selector": ".btn btn--pill button",
+      "text": "Submit application"
+    }
+  ],
+  "field_mappings": {
+    "D.E. Shaw": {},
+    "Evercore": {},
+    "Moelis": {},
+    "Advisory Summer Internship": {},
+    "2026 Blackstone Summer": {},
+    "Quant Trading Internship": {
+      "first_name": "full name",
+      "last_name": "full name",
+      "email": "email",
+      "phone": "phone",
+      "school--0": "university",
+      "degree--0": "degree"
+    },
+    "Internship - Quantitative": {
+      "first_name": "full name",
+      "last_name": "full name",
+      "email": "email",
+      "phone": "phone",
+      "candidate-location": "city",
+      "school--0": "university",
+      "degree--0": "degree"
+    }
+  },
+  "portal_configurations": {
+    "Evercore": "smartrecruiters",
+    "Advisory Summer Internship": "smartrecruiters",
+    "2026 Blackstone Summer": "workday",
+    "Quant Trading Internship": "greenhouse",
+    "Internship - Quantitative": "greenhouse"
+  },
+  "dynamic_content_handling": []
+}

@@ -1,0 +1,97 @@
+{
+  "url": "https://job-boards.greenhouse.io/ctccampusboard/jobs/4577583005?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&gh_src=Trackr",
+  "company": "Quant Trading Internship",
+  "analysis_date": "2025-08-20T10:03:08.686349",
+  "page_title": "Job Application for Quant Trading Internship - Summer 2026 at CTC Campus - External, Not Advertised",
+  "issues": [
+    "Cookie consent required",
+    "Apply button required before form access",
+    "External portal: greenhouse"
+  ],
+  "patterns": {
+    "cookie_consent": {
+      "buttons": [],
+      "text_patterns": [
+        "Cookie consent detected"
+      ],
+      "selectors": []
+    },
+    "apply_buttons": {
+      "buttons": [
+        {
+          "text": "Apply",
+          "id": "",
+          "class": [
+            "btn",
+            "btn--pill"
+          ],
+          "selector": ".btn btn--pill button"
+        },
+        {
+          "text": "Submit application",
+          "id": "",
+          "class": [
+            "btn",
+            "btn--pill"
+          ],
+          "selector": ".btn btn--pill button"
+        }
+      ],
+      "links": [],
+      "text_patterns": []
+    },
+    "form_structure": {
+      "forms": [
+        {
+          "index": 0,
+          "action": "/ctccampusboard/jobs/4577583005?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&gh_src=Trackr",
+          "method": "get",
+          "id": "application-form",
+          "class": [
+            "application--form"
+          ],
+          "selector": "#application-form .application--form form",
+          "input_count": 73,
+          "select_count": 0,
+          "textarea_count": 0
+        }
+      ],
+      "form_count": 1,
+      "has_forms": true
+    },
+    "input_fields": {
+      "input_types": {
+        "text": 39,
+        "file": 1,
+        "number": 2,
+        "checkbox": 31
+      },
+      "field_mappings": {
+        "first_name": "full name",
+        "last_name": "full name",
+        "email": "email",
+        "phone": "phone",
+        "school--0": "university",
+        "degree--0": "degree"
+      },
+      "custom_fields": []
+    },
+    "external_portal": {
+      "portal_type": "greenhouse",
+      "portal_indicators": [
+        "Greenhouse portal detected"
+      ]
+    }
+  },
+  "recommendations": [
+    "Add cookie consent handling before form access",
+    "Click apply button before attempting form filling",
+    "Add specific handling for greenhouse portal"
+  ],
+  "original_app": {
+    "url": "https://job-boards.greenhouse.io/ctccampusboard/jobs/4577583005?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026&gh_src=Trackr",
+    "company": "Quant Trading Internship",
+    "status": "unknown",
+    "message": "External portal - needs analysis"
+  }
+}

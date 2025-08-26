@@ -1,0 +1,65 @@
+{
+  "D.E. Shaw": {
+    "type": "career_site",
+    "requires_account": false,
+    "apply_button_required": true,
+    "has_cookies": true,
+    "cookie_button_text": "Accept All",
+    "extract_job_info_early": true,
+    "specific_selectors": {
+      "apply_button": "a[href*='apply'], button:contains('Apply')",
+      "cookie_button": "button:contains('Accept')"
+    },
+    "portal_handling": {},
+    "apply_button_selector": "a[href*='apply'], button:contains('Apply'), .apply-button",
+    "form_wait_time": 5
+  },
+  "Evercore (SmartRecruiters)": {
+    "type": "smartrecruiters",
+    "requires_account": false,
+    "apply_button_required": true,
+    "has_cookies": true,
+    "cookie_button_text": "Accept All",
+    "extract_job_info_early": true,
+    "specific_selectors": {
+      "apply_button": "button[data-qa='apply-button']",
+      "cookie_button": "button:contains('Accept')"
+    },
+    "portal_handling": {
+      "iframe_detection": true,
+      "apply_button_selector": "button[data-qa='apply-button'], a[href*='apply']",
+      "form_selector": "form[data-qa='application-form']"
+    }
+  },
+  "Blackstone (Workday)": {
+    "type": "workday",
+    "requires_account": false,
+    "apply_button_required": true,
+    "has_cookies": true,
+    "cookie_button_text": "Accept All",
+    "extract_job_info_early": true,
+    "specific_selectors": {
+      "apply_button": "button[data-automation-id='apply-button']",
+      "cookie_button": "button:contains('Accept')"
+    },
+    "portal_handling": {
+      "iframe_detection": true,
+      "apply_button_selector": "button[data-automation-id='apply-button']",
+      "form_selector": "form[data-automation-id='application-form']"
+    }
+  },
+  "Citadel": {
+    "type": "career_site",
+    "requires_account": false,
+    "apply_button_required": true,
+    "has_cookies": true,
+    "cookie_button_text": "Accept All",
+    "extract_job_info_early": true,
+    "specific_selectors": {
+      "apply_button": "a[href*='apply'], button:contains('Apply')",
+      "cookie_button": "button:contains('Accept All Cookies')"
+    },
+    "portal_handling": {},
+    "apply_button_selector": "a[href*='apply'], button:contains('Apply'), .apply-button"
+  }
+}

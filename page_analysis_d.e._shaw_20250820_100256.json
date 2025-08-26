@@ -1,0 +1,79 @@
+{
+  "url": "https://www.deshaw.com/careers/trader-analyst-intern-london-summer-2026-5465?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026",
+  "company": "D.E. Shaw",
+  "analysis_date": "2025-08-20T10:02:56.633176",
+  "page_title": "Trader/Analyst Intern (London) \u2013 Summer 2026 | The D. E. Shaw Group",
+  "issues": [
+    "Cookie consent required",
+    "Apply button required before form access",
+    "No forms found on page"
+  ],
+  "patterns": {
+    "cookie_consent": {
+      "buttons": [
+        {
+          "text": "Accept All",
+          "id": "",
+          "class": [
+            "sc-dAlyuH",
+            "bYmxqf"
+          ],
+          "selector": ".sc-dAlyuH bYmxqf button"
+        }
+      ],
+      "text_patterns": [
+        "Cookie consent detected"
+      ],
+      "selectors": []
+    },
+    "apply_buttons": {
+      "buttons": [],
+      "links": [
+        {
+          "text": "Apply Now",
+          "href": "https://apply.deshaw.com/ApplicationPage1.html?entity=DESCO",
+          "id": "",
+          "class": [
+            "apply-now",
+            "parent-arrow-long",
+            "dark"
+          ],
+          "selector": ".apply-now parent-arrow-long dark a"
+        },
+        {
+          "text": "Apply Now",
+          "href": "https://apply.deshaw.com/ApplicationPage1.html?entity=DESCO",
+          "id": "",
+          "class": [
+            "apply-now",
+            "parent-arrow-long",
+            "light"
+          ],
+          "selector": ".apply-now parent-arrow-long light a"
+        }
+      ],
+      "text_patterns": []
+    },
+    "form_structure": {
+      "forms": [],
+      "form_count": 0,
+      "has_forms": false
+    },
+    "input_fields": {
+      "input_types": {},
+      "field_mappings": {},
+      "custom_fields": []
+    }
+  },
+  "recommendations": [
+    "Add cookie consent handling before form access",
+    "Click apply button before attempting form filling",
+    "Form may be loaded dynamically or in iframe"
+  ],
+  "original_app": {
+    "url": "https://www.deshaw.com/careers/trader-analyst-intern-london-summer-2026-5465?utm_source=Trackr&utm_medium=tracker&utm_campaign=UK_Finance_2026",
+    "company": "D.E. Shaw",
+    "status": "partial",
+    "message": "Form filled but submission failed"
+  }
+}
